@@ -20,14 +20,14 @@ namespace SensorDatabseWithScanner.Services
             
             
         }
-        public static void ListOfDeviceModelToCsvFile(IEnumerable<SensorInformationsModel> list)
+        public static void ListOfDeviceModelToCsvFile(IEnumerable<SensorInformationsModel> list,string name)
         {
             var ListPB = new List<PartialDiviceModel>();
             List<SensorInformationsModel> TmpList = list.ToList();
             ListPB = CreateAListToSave(TmpList);
             //Uncoment line below to see avrege package per
             //Console.WriteLine("Avrega PP: " + Avrege_PP.ToString("0.##") + "%");
-            using (var writer = new StreamWriter("ExportedDatabase.csv"))
+            using (var writer = new StreamWriter(name)) 
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
                 csv.WriteRecords(ListPB);

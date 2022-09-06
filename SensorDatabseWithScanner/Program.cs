@@ -62,9 +62,10 @@ void ShowBasicMenu()
     Console.ForegroundColor = ConsoleColor.DarkCyan;
     Console.WriteLine("\t 1     - Find Sensor in Database");
     Console.WriteLine("\t 2     - Refreah Database");
-    Console.WriteLine("\t 3     - Export Database");
-    Console.WriteLine("\t 4     - Show Extended Menu");
-    Console.WriteLine("\t 5     - Exit Program");
+    Console.WriteLine("\t 3     - Export Searched Sensors to Database");
+    Console.WriteLine("\t 4     - Export All Sensors to Database");
+    Console.WriteLine("\t 5     - Show Extended Menu");
+    Console.WriteLine("\t 6     - Exit Program");
     Console.ForegroundColor = ConsoleColor.Yellow;
     Console.WriteLine("X-----------------------------------------------------------------------X");
 }
@@ -73,8 +74,8 @@ void ShowBasicMenu()
 //UserDB.ShowSensorInfo(Console.ReadLine());
 
 
-
-while(BasicMenu)
+string d = LinuxCommand.SystemCommand("rm SearchExportedDatabase.csv");
+while (BasicMenu)
 {
     Console.ForegroundColor = ConsoleColor.Red;
     string key = Console.ReadLine();
@@ -82,10 +83,11 @@ while(BasicMenu)
     switch (key)
     {
         case "1":
+            //string a = LinuxCommand.SystemCommand("rm TemporaryInfluxDB1.csv");
             while (true)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("If you want to exit Find function write Exit");
+                Console.WriteLine("If you want to going back to the menu and save your's search: write Exit, next write 3");
                 Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 string SerialNumberOrMac = Console.ReadLine();
@@ -115,6 +117,7 @@ while(BasicMenu)
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
                 IDManager.DBcommands.ShowSensorInfo(Mac, IDManager.DbName);
                 Console.ForegroundColor = ConsoleColor.White;
+                IDManager.DBcommands.ExportSensorInfluxDBToCsv(IDManager.DbName,Mac);
             }
             break;
         case "2":
@@ -142,11 +145,16 @@ while(BasicMenu)
             }
             break;
         case "3":
-            ExportInfluxDBToCsvFileCorectly export = new ExportInfluxDBToCsvFileCorectly();
-            export.Export(IDManager.DbName);
+            ExportInfluxDBToCsvFileCorectly export1 = new ExportInfluxDBToCsvFileCorectly();
+            export1.ExportFindToDatabase();
             Console.WriteLine("End of Export");
             break;
         case "4":
+            ExportInfluxDBToCsvFileCorectly export = new ExportInfluxDBToCsvFileCorectly();
+            export.ExportWholeDatabase(IDManager.DbName);
+            Console.WriteLine("End of Export");
+            break;
+        case "5":
             Console.WriteLine("Going to ExtendedMenu...");
             ShowExtendedMenu();
             bool ExtendeMenu = true;
@@ -213,10 +221,11 @@ while(BasicMenu)
                         ShowExtendedMenu();
                         break;
                     case "6"://work
+                        string b = LinuxCommand.SystemCommand("rm TemporaryInfluxDB1.csv");
                         while (true)
                         {
                             Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.WriteLine("If you want to exit Find function write Exit");
+                            Console.WriteLine("If you want to going back to the menu and save your's search: write Exit, next write 3");
                             Console.WriteLine();
                             Console.ForegroundColor = ConsoleColor.Magenta;
                             string SerialNumberOrMac = Console.ReadLine();
@@ -246,6 +255,7 @@ while(BasicMenu)
                             Console.ForegroundColor = ConsoleColor.DarkGreen;
                             IDManager.DBcommands.ShowSensorInfo(Mac, IDManager.DbName);
                             Console.ForegroundColor = ConsoleColor.White;
+                            IDManager.DBcommands.ExportSensorInfluxDBToCsv(IDManager.DbName, Mac);
                         }
                         break;
                     case "9":
@@ -282,9 +292,10 @@ while(BasicMenu)
                 }
             }
             break;
-        case "5":
+        case "6":
             Console.WriteLine("Exiting Program...");
             BasicMenu = false;
+            string c = LinuxCommand.SystemCommand("rm TemporaryInfluxDB1.csv");
             break;
         default:
             ShowBasicMenu();

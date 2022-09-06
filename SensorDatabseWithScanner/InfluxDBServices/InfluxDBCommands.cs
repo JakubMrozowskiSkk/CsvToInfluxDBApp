@@ -44,9 +44,14 @@ namespace SensorDatabseWithScanner.InfluxDBServices
             string command = $"DROP DATABASE {database}";
             string a = LinuxCommand.InfluxCommand(command);
         }
-        public void ExportInfluxDBToCsv(string database)
+        public void ExportWholeDatabaseInfluxDBToCsv(string database)
         {
             string command = $"influx -database=\"{database}\" -execute 'SELECT * FROM /.*/' -format csv > TemporaryInfluxDB.csv";
+            string a = LinuxCommand.SystemCommand(command);
+        }
+        public void ExportSensorInfluxDBToCsv(string database,string mac)
+        {
+            string command = $"influx -database=\"{database}\" -execute 'SELECT * FROM /{mac}/' -format csv >> TemporaryInfluxDB1.csv";
             string a = LinuxCommand.SystemCommand(command);
         }
     }
