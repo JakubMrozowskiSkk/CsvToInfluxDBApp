@@ -33,7 +33,7 @@ namespace SensorDatabseWithScanner.InfluxDBServices
             {
                 string output = val.MainInfo;
                 foreach (var tmp in val.Informations)
-                    output += "," + tmp;
+                    output += ";" + tmp;
                 output=output.Replace(" ","_");
                 //Console.WriteLine(val.MAC);
                 //Console.WriteLine(output);

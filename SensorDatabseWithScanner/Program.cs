@@ -138,9 +138,13 @@ while(BasicMenu)
                     i++;
                 }
                 Console.WriteLine("Refreash Database Complete");
+                ShowBasicMenu();
             }
             break;
         case "3":
+            ExportInfluxDBToCsvFileCorectly export = new ExportInfluxDBToCsvFileCorectly();
+            export.Export(IDManager.DbName);
+            Console.WriteLine("End of Export");
             break;
         case "4":
             Console.WriteLine("Going to ExtendedMenu...");
@@ -157,11 +161,13 @@ while(BasicMenu)
                         Console.WriteLine("Showing Databases...");
                         IDManager.DBcommands.ShowDB();
                         Console.WriteLine("End Of Process");
+                        ShowExtendedMenu();
                         break;
                     case "4"://work
                         Console.WriteLine("Showing Database you are in now...");
                         Console.WriteLine(IDManager.DbName);
                         Console.WriteLine("End Of Process");
+                        ShowExtendedMenu();
                         break;
                     case "11"://work
                         Console.WriteLine("Going back to Menu...");
@@ -173,17 +179,20 @@ while(BasicMenu)
                         string database = Console.ReadLine();
                         IDManager.SetNewDbName(database);
                         Console.WriteLine($"Database set to \"{database}\" End Of Process");
+                        ShowExtendedMenu();
                         break;
                     case "1":
                         Console.WriteLine("Create Database...");
                         string cdatabase = Console.ReadLine();
                         UserDB.CreateDB(cdatabase);
                         Console.WriteLine($"You Create Database name \"{cdatabase}\" End Of Process");
+                        ShowExtendedMenu();
                         break;
                     case "5"://work
                         Console.WriteLine("Showing Database Measurments...");
                         IDManager.DBcommands.ShowMeasurments(IDManager.DbName);
                         Console.WriteLine("End Of Process");
+                        ShowExtendedMenu();
                         break;
                     case "7"://work
                         Console.WriteLine("Import your .csv file with basic info of sensor to Database...");
@@ -192,6 +201,7 @@ while(BasicMenu)
                         basicInfoOfSensorDatabase.ReadFromFile(BasicFileName);
                         IDManager.DBInsert.InsertSensorToInfluxDB(basicInfoOfSensorDatabase.SensorList, IDManager.DbName);
                         Console.WriteLine("End Of Import");
+                        ShowExtendedMenu();
                         break;
                     case "8"://work
                         Console.WriteLine("Import your .csv file with extended info of sensor to Database...");
@@ -200,6 +210,7 @@ while(BasicMenu)
                         extendedInfoOfSensorDatabase.ReadFromFile(ExtendedFileName,ExtendedFileName);
                         IDManager.DBInsert.InsertSensorInfoToInfluxDB(extendedInfoOfSensorDatabase.InformationsOfSensorList.ToList(), IDManager.DbName);
                         Console.WriteLine("End Of Import");
+                        ShowExtendedMenu();
                         break;
                     case "6"://work
                         while (true)
