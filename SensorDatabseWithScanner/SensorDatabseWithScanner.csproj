@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;8618;8604;8600;8602</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;8618;8604;8600;8602</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Terminal.Gui" Version="1.7.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\My App\SensorApp\CommonStaff\Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="DatabaseName.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
