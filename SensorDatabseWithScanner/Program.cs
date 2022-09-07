@@ -43,7 +43,9 @@ void ShowExtendedMenu()
     Console.WriteLine("\t 8             - Import Extended info of sensors to Database");
     Console.WriteLine("\t 9             - Delete Chosen Record In One Place");
     Console.WriteLine("\t 10            - Delete Chosen Record In whole Database");
-    Console.WriteLine("\t 11            - Back To Menu");
+    Console.WriteLine("\t 11            - Export Searched Sensors to Database");
+    Console.WriteLine("\t 12            - Export All Sensors to Database");
+    Console.WriteLine("\t 13            - Back To Menu");
     Console.ForegroundColor = ConsoleColor.Yellow;
     Console.WriteLine("X-----------------------------------------------------------------------X");
 }
@@ -177,7 +179,7 @@ while (BasicMenu)
                         Console.WriteLine("End Of Process");
                         ShowExtendedMenu();
                         break;
-                    case "11"://work
+                    case "13"://work
                         Console.WriteLine("Going back to Menu...");
                         ShowBasicMenu();
                         ExtendeMenu = false;
@@ -285,6 +287,16 @@ while (BasicMenu)
                                 IDManager.DBcommands.DeleteKeYValueInMeasurement(IDManager.DbName, tag_value_all, val.Mac, tag_key_all);
                         }
                         Console.WriteLine("End Of Process");
+                        break;
+                    case "11":
+                        ExportInfluxDBToCsvFileCorectly export2 = new ExportInfluxDBToCsvFileCorectly();
+                        export2.ExportFindToDatabase();
+                        Console.WriteLine("End of Export");
+                        break;
+                    case "12":
+                        ExportInfluxDBToCsvFileCorectly export3 = new ExportInfluxDBToCsvFileCorectly();
+                        export3.ExportWholeDatabase(IDManager.DbName);
+                        Console.WriteLine("End of Export");
                         break;
                     default:
                         ShowExtendedMenu();
