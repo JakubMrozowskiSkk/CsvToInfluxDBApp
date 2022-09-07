@@ -71,12 +71,8 @@ void ShowBasicMenu()
     Console.ForegroundColor = ConsoleColor.Yellow;
     Console.WriteLine("X-----------------------------------------------------------------------X");
 }
-//UserDB.ShowDB();
-//UserDB.ShowMeasurments();
-//UserDB.ShowSensorInfo(Console.ReadLine());
-
-
 string d = LinuxCommand.SystemCommand("rm SearchExportedDatabase.csv");
+ExportInfluxDBToCsvFileCorectly exporter = new ExportInfluxDBToCsvFileCorectly();
 while (BasicMenu)
 {
     Console.ForegroundColor = ConsoleColor.Red;
@@ -85,7 +81,6 @@ while (BasicMenu)
     switch (key)
     {
         case "1":
-            //string a = LinuxCommand.SystemCommand("rm TemporaryInfluxDB1.csv");
             while (true)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
@@ -134,7 +129,6 @@ while (BasicMenu)
                 int i = 1;
                 foreach (var file in CsvFile)
                 {
-                    //Console.WriteLine(file.FullName);
                     string ExtendedFileName = file.FullName;
                     SensorDatabaseExtendedInfo extendedInfoOfSensorDatabase = new SensorDatabaseExtendedInfo();
                     extendedInfoOfSensorDatabase.ReadFromFile(ExtendedFileName,file.Name);
@@ -147,13 +141,11 @@ while (BasicMenu)
             }
             break;
         case "3":
-            ExportInfluxDBToCsvFileCorectly export1 = new ExportInfluxDBToCsvFileCorectly();
-            export1.ExportFindToDatabase();
+            exporter.ExportFindSensorsToDatabase();
             Console.WriteLine("End of Export");
             break;
         case "4":
-            ExportInfluxDBToCsvFileCorectly export = new ExportInfluxDBToCsvFileCorectly();
-            export.ExportWholeDatabase(IDManager.DbName);
+            exporter.ExportAllSensorsToDatabase(IDManager.DbName);
             Console.WriteLine("End of Export");
             break;
         case "5":
@@ -270,7 +262,6 @@ while (BasicMenu)
                         tag_key = Console.ReadLine();
                         Console.WriteLine("Input tag_value: ");
                         tag_value = Console.ReadLine();
-                        //foreach (var val in Base.SensorList)
                         IDManager.DBcommands.DeleteKeYValueInMeasurement(IDManager.DbName, tag_value, M, tag_key);
                         Console.WriteLine("End Of Process");
                         break;
@@ -289,13 +280,11 @@ while (BasicMenu)
                         Console.WriteLine("End Of Process");
                         break;
                     case "11":
-                        ExportInfluxDBToCsvFileCorectly export2 = new ExportInfluxDBToCsvFileCorectly();
-                        export2.ExportFindToDatabase();
+                        exporter.ExportFindSensorsToDatabase();
                         Console.WriteLine("End of Export");
                         break;
                     case "12":
-                        ExportInfluxDBToCsvFileCorectly export3 = new ExportInfluxDBToCsvFileCorectly();
-                        export3.ExportWholeDatabase(IDManager.DbName);
+                        exporter.ExportAllSensorsToDatabase(IDManager.DbName);
                         Console.WriteLine("End of Export");
                         break;
                     default:

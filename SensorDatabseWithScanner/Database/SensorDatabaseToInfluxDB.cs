@@ -14,7 +14,6 @@ namespace SensorDatabseWithScanner.Database
         public void ReadFromFile(string filename)
         {
             SensorList = new List<SensorInformationsModel>();
-            //string fullPath = FilePath.PathToFile(filename);
             SensorList = CsvToSensorList.ReadSensorsFromCsv(filename);
         }
     }
